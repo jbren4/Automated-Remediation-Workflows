@@ -1,0 +1,19 @@
+# Ignore JSON/CSV files
+*.csv
+*.json
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+
+# (Optional) If you have a virtual environment
+.env/
+venv/
+
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
