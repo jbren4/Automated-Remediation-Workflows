@@ -4,6 +4,7 @@ import datetime
 import re
 import os
 from dotenv import load_dotenv
+import pandas as pd
 #Enrich the log with the following data from Entra ID Cloud Directory
     #userPrincipalName (UPN)
     #userType (Member/Guest)
@@ -740,3 +741,79 @@ def obtain_oAuth_token_SNOW_Table_API(SNOWDomain):
     else:
         print(f"Failed to retrieve oAuth Bearer Token. Received response code was {response_object.status_code}")
         return False
+
+def parse_input_user_format(file_format,path_to_file):
+    print("Attempting to read in input account objects")
+    list_of_json_objects=[]
+    #Parse CSV input file
+    if file_format.lower()=="csv":
+        #read in Pandas DF
+        input_df=pd.read_csv(return_raw_string(path_to_file))
+        #Valid Account field exists within the input CSV file
+        if "Account" not in input_df.columns:
+            print(f"Failure: Failed to read in input accounts because invalid input file format: No 'Account' field within the input csv")
+            return False
+        #Create list of dictionary objects that contain Account field
+        for account_str in input_df['Account'].to_list():
+            new_dict_object={"Account":account_str}
+            list_of_json_objects.append(new_dict_object)
+        print("Success: Successfully read in input account objects from CSV file")
+        return list_of_json_objects
+    #Parse list of JSON objects where each object is a account identifer
+    elif file_format.lower()=="json":
+        #Read in the json file
+        with open(return_raw_string(path_to_file),'r') as file_obj:
+            list_of_json_objects=json.load(file_obj)
+        #Validate input format
+        for dictionary in list_of_json_objects:
+            if 'Account' not in dictionary.keys():
+                print("Failed to read in input accounts because invalid input file format: No 'Account' field within the input JSON list of objects")
+                return False
+        #Return list of Python dictionaries
+        print("Success: Successfully read in input account objects from JSON file")
+        return list_of_json_objects
+    #Parse ndJSON or JSONL file
+    elif file_format.lower()=="ndjson" or file_format.lower()=="jsonl":
+        #Read in the input file:
+        with open(return_raw_string(path_to_file),'r') as file_obj:
+            list_of_json_objects=file_obj.readlines()
+        #Convery list of JSON strings into list of Python dictionaries
+        list_of_json_objects=[ json.loads(json_str) for json_str in list_of_json_objects]
+        #Validate proper input format
+        for dictiaonry in list_of_json_objects:
+            if 'Account' not in dictiaonry.keys():
+                print("Failed to read in input accounts because invalid input file format: No 'Account' field within the input ndJSON or JSONL file")
+                return False
+        print(f"Success: Successfully read in input account objects from {file_format} file")
+        #Return list of Python dictionaries
+        return list_of_json_objects
+
+
+def parse_input_host_format(file_format,path_to_file):
+    list_of_host_ids=[]
+    print("Attempting to read in input host objects")
+    if file_format.lower()=='csv':
+        host_df=pd.read_csv(return_raw_string(path_to_file))
+        if 'host_id' not in host_df.columns:
+            print("Failure: Failed to read in input host_ids because invalid input file format: No 'host_id' field within the input CSV")
+            return False
+        for host_id in host_df['host_id'].to_list():
+            list_of_host_ids.append(host_id.lower().replace(' ',''))
+        return list_of_host_ids
+    elif file_format.lower()=='json':
+        with open(return_raw_string(path_to_file),'r') as file_obj:
+            list_of_host_ids=json.load(file_obj)
+        for json_object in list_of_host_ids:
+            if 'host_id' not in json_object.keys():
+                print("Failure: Failed to read in input host_ids because invalid input file format: No 'host_id' field within the input list of JSON objects")
+                return False
+        return [json_log_object.get('host_id').lower().replace(' ','')  for json_log_object in list_of_host_ids ]
+    elif file_format.lower()=='ndjson' or file_format.lower()=='jsonl':
+        with open(return_raw_string(path_to_file),'r') as file_obj:
+            list_of_host_ids=file_obj.readlines()
+        list_of_host_ids=[json.loads(json_str)  for json_str in list_of_host_ids]
+        for json_dict in list_of_host_ids:
+            if 'host_id' not in json_dict.keys():
+                print("Failure: Failed to read in input host_ids because invalid input file format: No 'host_id' field within the input list of JSON objects")
+                return False
+        return [json_dict.get('host_id') for json_dict in list_of_host_ids]

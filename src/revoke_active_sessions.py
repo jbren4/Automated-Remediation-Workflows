@@ -2,16 +2,15 @@ import requests
 import json
 from socautomationfunctions import revoke_active_sessions
 from socautomationfunctions import return_raw_string
+from socautomationfunctions import parse_input_user_format
+import sys
 
-#Read input ndJSON file
-print(f"Attempting to read in Account objects")
-list_of_account_objects=[]
-with open(return_raw_string('/Users/josephbrennan/githubProjects/SOC_Automations/input_files/accounts.json'),'r') as file_obj:
-    list_of_account_objects=file_obj.readlines()
-print("Successfully read in input file")
-#Convert each strline from the file into Pyton dictionary
-    #Now we have a list of Python dictionaires where each entry is the input account object
-list_of_account_objects=[json.loads(str_line) for str_line in list_of_account_objects]
+
+#Read in input
+list_of_account_objects=parse_input_user_format('csv',return_raw_string('/Users/josephbrennan/githubProjects/SOC_Automations/input_files/accounts.csv'))
+if not list_of_account_objects:
+    print("Failed to properly read in accounts")
+    sys.exit(0)
 
 print("Starting workflow to revoke active sessions")
 #For each input account dictionary, attempt to revoke the account
