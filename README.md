@@ -40,16 +40,16 @@ Disabled Account:
 Install dependencies
 pip install -r requirements.txt
 - Entra ID App registration with API permissions: 
-    -AuditLog.Read.All
-    -GroupMember.ReadWrite.All
-    -OrgContact.Read.All
-    -User.EnableDisableAccount.All
-    -User.Read
-    -User.Read.All
-    -User.RevokeSessions.All
-    -UserAuthenticationMethods.Read.All
-    -UserAuthenticationMethods.ReadWrite.All
-    -Machine.Scan
+    - AuditLog.Read.All
+    - GroupMember.ReadWrite.All
+    - OrgContact.Read.All
+    - User.EnableDisableAccount.All
+    - User.Read
+    - User.Read.All
+    - User.RevokeSessions.All
+    - UserAuthenticationMethods.Read.All
+    - UserAuthenticationMethods.ReadWrite.All
+    - Machine.Scan
 
 
 
