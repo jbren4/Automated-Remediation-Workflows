@@ -67,9 +67,11 @@ Each script includes:
     - Performing actions/retrieving info for Entra ID account -> accounts.csv, accounts.json
     - Trigger MDE AV Scan -> hosts.csv, hosts.json
 
-## Executing the Scripts
+## Executing the Workflows
 - Simply use a Python interpreter to invoke the desired script
     - python3 ./disable_Entra_account.py
+ 
+ 
  
     
 
