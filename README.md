@@ -28,5 +28,14 @@ Each script includes:
 
 
 ## Demo
-Enabled Account
+Enabled Account:
 ![Demo Screenshot](./assets/enabledAccount.png)
+Run Script: 
+![Demo Screenshot](./assets/firstStageOfScriptExecution.png)
+![Demo Screenshot](./assets/SecondStageOfScriptExecution.png)
+Output:
+![Demo Screenshot](./assets/scriptOutput.png)
+
+
+
+
