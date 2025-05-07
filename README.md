@@ -38,7 +38,7 @@ Disabled Account:
 
 ## Requirements
 Install dependencies
-pip install -r requirements.txt
+- pip install -r requirements.txt
 - Entra ID App registration with API permissions: 
     - AuditLog.Read.All
     - GroupMember.ReadWrite.All
@@ -50,7 +50,12 @@ pip install -r requirements.txt
     - UserAuthenticationMethods.Read.All
     - UserAuthenticationMethods.ReadWrite.All
     - Machine.Scan
-
+- Secret Management
+    - Store secrets in a local .env file as: 
+    - Graph_API_Client_Id=
+    - Graph_API_Client_Secret=
+    - SNOW_API_Client_Id=
+    - SNOW_API_Client_Secret=
 
 
 
