@@ -37,7 +37,6 @@ Each script includes:
 ![Account Successfully Disabled](./assets/scriptOutput.png)
 
 ## Requirements
-Install dependencies
 - pip install -r requirements.txt
 - Entra ID App registration with API permissions: 
     - AuditLog.Read.All
@@ -56,6 +55,20 @@ Install dependencies
     - Graph_API_Client_Secret=
     - SNOW_API_Client_Id=
     - SNOW_API_Client_Secret=
+
+## Input Formats
+- The workflows support the following input formats
+    - CSV
+    - JSON
+    - ndJSON
+    - JSONL
+- Example input files are located within ./input_files
+    - remove_object_from_entra_security_group.py -> account_and_group.csv 
+    - Performing actions/retrieving info for Entra ID account -> accounts.csv, accounts.json
+    - Trigger MDE AV Scan -> hosts.csv, hosts.json
+
+ 
+    
 
 
 
