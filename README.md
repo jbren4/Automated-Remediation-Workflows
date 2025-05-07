@@ -28,13 +28,17 @@ Each script includes:
 
 
 ## Demo
+Enabled Account:
 ![Enabled Account](./assets/enabledAccount.png)
 Run Script: 
 ![Preparing to execute the script](./assets/firstStageOfScriptExecution.png)
 ![Script output](./assets/SecondStageOfScriptExecution.png)
-Output:
+Disabled Account:
 ![Account Successfully Disabled](./assets/scriptOutput.png)
 
+## Requirements
+Install dependencies
+pip install -r requirements.txt
 
 
 
