@@ -1,4 +1,4 @@
-# Automated Remediation Workflow Repository
+# Automated Remediation Workflows for Detection Engineering & Incident Response
 
 This repository contains tested, fully functional, and production ready Python scripts which can be utilized in Detection Engineering pipelines, SOAR workflows, and case management ticket enrichment. 
 
@@ -27,13 +27,13 @@ Each script includes:
 | trigger_MDE_Scan.py | Triggers an MDE AV Scan of a target system
 
 
-## Demo
-Enabled Account:
+## Demo Screenshots
+**Before**: Target account still enabled
 ![Enabled Account](./assets/enabledAccount.png)
-Run Script: 
+**Script Execution**:
 ![Preparing to execute the script](./assets/firstStageOfScriptExecution.png)
 ![Script output](./assets/SecondStageOfScriptExecution.png)
-Disabled Account:
+**After**: Account successfully disabled 
 ![Account Successfully Disabled](./assets/scriptOutput.png)
 
 ## Requirements
@@ -56,6 +56,7 @@ Install dependencies
     - Graph_API_Client_Secret=
     - SNOW_API_Client_Id=
     - SNOW_API_Client_Secret=
+
 
 
 
