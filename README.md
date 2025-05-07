@@ -13,3 +13,12 @@ Each script includes:
 - **JSON, ndJSON, JSONL, and CSV input options**
 - **Modular structure allowing cutomization of SOAR workflows and Detection Engineering pipelines**      
 
+## Available Workflows
+
+| Script            | Description                                                        |
+|------------------------------|--------------------------------------------------------------------|
+| disable_Entra_account.py      | Disables an account within EntraID     |
+| revoke_MFA_Methods.py       |   Revokes all MFA methods enrolled by an Entra ID account     |
+| revoke_active_sessions.py   | Revokes all active tokens issued by Entra ID to an account            |
+| remove_object_from_entra_security_group.py    | Removes Entra ID account from Entra ID security group                 |
+| enrich_incident_with_account_details.py      | Locates an account within Entra ID and writes a JSON file indicating account details like geolocation, department, job title, etc   |
