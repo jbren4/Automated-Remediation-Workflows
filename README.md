@@ -71,7 +71,15 @@ Each script includes:
 - Simply use a Python interpreter to invoke the desired script
     - python3 ./disable_Entra_account.py
  
- 
+## Roadmap
+    -[x] Graph API automated remediation workflows
+    -[x] SNOW Table API automated remediation workflows
+    -[x] MDE API automated remediation workflows
+    -[]  CLI wrapper for script execution (StdIn, StdOut) (June 2025)
+    -[]  Full logging and customized output functionality (August 2025)
+    -[]  Eventual integration with commerical tooling
+
+
  
     
 
