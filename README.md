@@ -1,8 +1,8 @@
-#Automated Remediation Workflow Repository for Detection Engineering and Incident Response
+# Automated Remediation Workflow Repository for Detection Engineering and Incident Response
 
 This repository contains tested, full functional, and production ready Python scripts which can be utilized in Detection Engineering pipelines, SOAR workflows, and case management ticket enrichment. 
 
-##Overview
+## Overview
 
 The Python scripts leverage Microsoft Graph API, SNOW Table API, and Microsoft Defender for Endpoint API to autoremediate threats and massively increase SOC efficency
 
