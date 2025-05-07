@@ -1,17 +1,17 @@
-# Automated Remediation Workflow Repository for Detection Engineering and Incident Response
+# Automated Remediation Workflow Repository
 
-This repository contains tested, full functional, and production ready Python scripts which can be utilized in Detection Engineering pipelines, SOAR workflows, and case management ticket enrichment. 
+This repository contains tested, fully functional, and production ready Python scripts which can be utilized in Detection Engineering pipelines, SOAR workflows, and case management ticket enrichment. 
 
 ## Overview
 
-The Python scripts leverage Microsoft Graph API, SNOW Table API, and Microsoft Defender for Endpoint API to autoremediate threats and massively increase SOC efficency
+The Python scripts leverage Microsoft Graph API, SNOW Table API, and Microsoft Defender for Endpoint API to auto-remediate threats and significantly increase SOC efficiency
 
-Several worfkows including disable_Entra_account.py increase SOC efficiency by > 80%
+Several workflows including disable_Entra_account.py increase SOC efficiency by > 80%
 
 Each script includes:
-- **Robust error handeling at the input level and API level**
+- **Robust error handling at the input level and API level**
 - **JSON, ndJSON, JSONL, and CSV input options**
-- **Modular structure allowing cutomization of SOAR workflows and Detection Engineering pipelines**      
+- **Modular structure allowing customization of SOAR workflows and Detection Engineering pipelines**      
 
 ## Available Workflows
 
@@ -28,13 +28,12 @@ Each script includes:
 
 
 ## Demo
-Enabled Account:
-![Demo Screenshot](./assets/enabledAccount.png)
+![Enabled Account](./assets/enabledAccount.png)
 Run Script: 
-![Demo Screenshot](./assets/firstStageOfScriptExecution.png)
-![Demo Screenshot](./assets/SecondStageOfScriptExecution.png)
+![Preparing to execute the script](./assets/firstStageOfScriptExecution.png)
+![Script output](./assets/SecondStageOfScriptExecution.png)
 Output:
-![Demo Screenshot](./assets/scriptOutput.png)
+![Account Successfully Disabled](./assets/scriptOutput.png)
 
 
 
