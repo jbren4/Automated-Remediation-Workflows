@@ -25,3 +25,8 @@ Each script includes:
 | locate_account_within_Entra_ID_Directory.py | Validates an input account identifier represents a valid Entra ID account | 
 |retrieve_sign_in_logs_from_Entra_ID.py | Retrieves the past 7 days of Entra ID interactive Sign-In logs for a target account |
 | trigger_MDE_Scan.py | Triggers an MDE AV Scan of a target system
+
+
+## Demo
+Enabled Account
+![Demo Screenshot](./assets/enabledAccount.png)
