@@ -1,0 +1,2 @@
+ticket_type,SNOW_Domain,IPs
+fw_block,hello,"192.168.0.0,10.0.1.111"

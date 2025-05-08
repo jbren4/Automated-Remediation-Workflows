@@ -336,11 +336,12 @@ def return_raw_string(non_raw_string):
     #SNOWDomain: Subdomain providing your org's unique identifier in the SNOW enviroment EX: yourorgdomain.service-now.com
     #dictionary_of_FW_Enviroments_And_SNOW_Groups: Dictionary where each key represents a Firewall enviroment where an INC must be raised. Value is a list of attributes needed to raise SNOW INC in that enviroment
     #Returns True/False indicating if SNOW INC successfully raised in each FW enviroment
-def raise_INC_SNOW_Ticket_FWBlock_of_IPAddresses(SNOWDomain,dictionary_of_FW_Enviroments_And_SNOW_Groups):
+def raise_INC_SNOW_Ticket_FWBlock_of_IPAddresses(SNOWDomain,list_of_IPs_for_blocking,dictionary_of_FW_Enviroments_And_SNOW_Groups):
     #Obtain Bearer Token
     bearer_token=obtain_oAuth_token_SNOW_Table_API(SNOWDomain)
     if not bearer_token:
         print("Failure: Failed to raise SNOW ticket to block IP Addresses because oAuth token failed to be returned")
+        return False
     #Intalize dictionary of FW enviroments
     dictionary_of_FW_Enviroments_And_SNOW_Groups={"dc_1FW":["Firewallteam","category","subcategory"]}
    
@@ -366,7 +367,7 @@ def raise_INC_SNOW_Ticket_FWBlock_of_IPAddresses(SNOWDomain,dictionary_of_FW_Env
         dict_for_raisingTicket['subcategory']=dictionary_of_FW_Enviroments_And_SNOW_Groups.get(fw_enviroment)[2]
         dict_for_raisingTicket['state']='draft'
         response_to_raise_FW_Block_Tickets=requests.post(url=inc_endpoint,headers={"Authorization":f"Bearer {bearer_token}","accept":"application/json","Content-Type":"application/json"},data=json.dumps(dict_for_raisingTicket))
-        if response_to_raise_FW_Block_Tickets.staus_code==201:
+        if response_to_raise_FW_Block_Tickets.status_code==201:
             print(f"Success: The request to raise an INC ticket to IPs at the Firewalls was successful")
             block_ticket_raised_in_each_enviroment.append(True)
         else:
@@ -393,9 +394,9 @@ def raise_INC_SNOW_Ticket_Ticket_Rotate_Account_Password(SNOW_Domain,account_obj
         print(f"Failed to raise password rotation SNOW INC for the input account. Issue with input format OR account: {account_object} does NOT exist within Entra ID Directory")
         return False
     #Obtain oAuth Token
-    bearer_token=obtain_oAuth_token_SNOW_Table_API(SNOWDomain)
+    bearer_token=obtain_oAuth_token_SNOW_Table_API(SNOW_Domain)
     if not bearer_token:
-        print("Failed to raise INC SNOW Ticket to rotate account PW. Failed to obtain oAuth Token")
+        print(f"Failed to raise INC SNOW Ticket to rotate account PW. Failed to obtain oAuth Token")
         return False
     
     map_of_directories_and_SNOW_Groups={"entraid":["PWChangeFolks","category","subcategory"]}
@@ -735,7 +736,7 @@ def obtain_oAuth_token_SNOW_Table_API(SNOWDomain):
     post_request_body_for_token={"client_id":Read_In_SNOW_Client_ID,"client_secret":SNOW_Client_Secret,"grant_type":"client_credentials"}
     response_object=requests.post(url=oAuthEndpoint,data=post_request_body_for_token)
     bearer_token=None
-    print("OAuthRequest response code for Bearer Token: {response_object.status_code}")
+    print(f"OAuthRequest response code for Bearer Token: {response_object.status_code}")
     if response_object.status_code>=200 and response_object.status_code<300:
         return response_object.json().get('access_token')
     else:
@@ -817,3 +818,26 @@ def parse_input_host_format(file_format,path_to_file):
                 print("Failure: Failed to read in input host_ids because invalid input file format: No 'host_id' field within the input list of JSON objects")
                 return False
         return [json_dict.get('host_id') for json_dict in list_of_host_ids]
+
+def parse_input_SNOW_INC(file_format,path_to_file):
+    output_dict_of_config_values={}
+    #Parse CSV file
+    if file_format.lower()=='csv':
+        #Extract the ticket type
+        snow_input_df=pd.read_csv(return_raw_string(path_to_file))
+        if 'ticket_type' not in snow_input_df.columns:
+            print('Failed to read in SNOW INC configuration CSV file: Issue with CSV format. \n Validate that ticket_type column appears with the input CSV')
+            return False
+        output_dict_of_config_values['ticket_type']=snow_input_df['ticket_type'].to_list()[0]
+        if 'SNOW_Domain' not in snow_input_df.columns:
+            print('Failed to read in SNOW INC configuration CSV file: Issue with CSV format. \n Validate that SNOW_Domain column appears with the input CSV')
+            return False
+        output_dict_of_config_values['SNOW_Domain']=snow_input_df['SNOW_Domain'].to_list()[0]
+        if 'Account' in snow_input_df.columns:
+            output_dict_of_config_values['Account']=snow_input_df['Account'].to_list()[0]
+        else:
+            output_dict_of_config_values['Account']=None
+        if 'IPs' in snow_input_df.columns:
+            output_dict_of_config_values['IPs']=snow_input_df['IPs'].to_list()[0].replace(' ','').split(',')
+    return output_dict_of_config_values
+       
